@@ -1,4 +1,18 @@
-[TOC]
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Algorithm & DataStructure](#algorithm--datastructure)
+  - [数据结构](#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+    - [1. 逻辑结构](#1-%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84)
+    - [2. 数据类型与抽象数据类型](#2-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)
+  - [排序算法--leetcode912](#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95--leetcode912)
+    - [1. 快速排序](#1-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F)
+    - [2. 冒泡排序](#2-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
 
 ## Algorithm & DataStructure
 
