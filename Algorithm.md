@@ -45,9 +45,36 @@
 
 ### 排序算法--leetcode912
 
-#### 1. 快速排序
+```js
+//辅助函数--增加可读性, 抽取公用函数
+function checkIsArray(nums) {
+    if (!array || array.length <= 2) return
+}
+function swapValue(nusm, left, right) {
+    let temp = nums[right]
+    nums[right] = nums[left]
+    nums[left] = temp
+}
+```
 
+#### 1. 插入排序
 
+```js
+//插入
+// 时间复杂度：O(N^2)  976 ms    31.83 %
+// 空间复杂度：O(1)    42.7MB    63.59 %
+// 描述: 1. 第一和第二元素进行大小比较并交换位置 2. 选取下一个元素向前对比, 比前面值小的化就的话交换位置, 以此类推.
+var sortArray = function (nums) {
+    checkIsArray(nums);
+    
+    for (let i = 1; i < nums.length; i++) {		//第一层循环次数length-i(length-1), 设i为1让第二层判断方便
+        for (let j = i - 1; j >= 0 && nums[j] > nums[j + 1]; j--) //第二层循环, 当比较到第一个元素时停止向前比较
+            swapValue(nums, j, j + 1);							//通过j--来设置向前. 如果第j+1个比第j个小就往前挪
+    }
+    
+    return nums;
+}
+```
 
 #### 2. 冒泡排序
 
@@ -57,19 +84,73 @@
 // 空间复杂度：O(1)    41.3MB    95.83%
 // 描述: 将当前值与余下的值比较并交换位置, 直到每个值完成比较.
 var sortArray = function (nums) {
-    let i, temp;
-    for (j = 0; j < nums.length-1; j++) {		//需要循环的次数是length-1, 因为最后一个不用比较
-        for (i = 0; i < nums.length - j; i++) {	//每个数比较的次数是length-j, 已经比较不需要再次比较.
+    
+    for (let j = 0; j < nums.length-1; j++) {		//需要循环的次数是length-1, 因为最后一个元素已经是最大数了
+        for (let i = 0; i < nums.length - j; i++) {	//每个数比较的次数是length-j, 已经比较不需要再次比较.
             if (nums[i] > nums[i + 1]) {
-                temp = nums[i];
-                nums[i] = nums[i + 1];
-                nums[i + 1] = temp;
+                swapValue(nums, i, i+1)
             }
         }
     }
+    
     return nums;
 };
 ```
+
+#### 3. 选择排序
+
+```js
+//选择排序
+// 时间复杂度：O(N^2)  1236ms    28.52%
+// 空间复杂度：O(1)    42.2MB     90.17%
+// 描述: 1. 记录一个最小值的下标, 内层循环寻找这个下标, 之后在外层循环替换最小值, 下次可以从第二小的索引值开始, 以此循环.
+var sortArray = function (nums){
+    checkIsArray(nums);
+    let minIndex;		//记录最小值下标
+
+    for(let i=0; i<nums.length-1;i++){
+        minIndex = i	//最小值下标
+        for(let j=i+1; j<nums.length; j++){
+            if(nums[minIndex]>nums[j]){
+                minIndex = j //寻找length-i个数中的最小值的下标
+            }
+        }
+        swapValue(nums, minIndex, i);	//交换最小值到前面
+    }
+    return nums;
+}
+```
+
+#### 4. 快速排序
+
+```js
+// 快速排序
+// 时间复杂度： O(logN)  156 ms    48.84 %
+// 空间复杂度：O(1)   50 MB     90.17%
+// 描述:	1. 使用分治的思想进行排序处理 2. 选定任意基准, 将大于它的移到右边, 小于他的移到左边 3. 对"基准"左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止
+// 原理: 一个排完序的数组, 任意一个数的右边都是大于它的, 任意一个数的左边都是小于他的, 以此反推.
+var sortArray = function (nums) {
+
+    if (nums.length <= 1) { return nums; }		//当数组被分割完时, 即所有子集只有一个元素
+    var pivotIndex = Math.floor(nums.length / 2); //选取中间作为基准
+    var pivot = nums.splice(pivotIndex, 1)[0];
+    var left = [];		
+    var right = [];
+    
+    for (var i = 0; i < nums.length; i++) {
+        if (nums[i] < pivot) {
+            left.push(nums[i]);		//存储到相应的位置
+        } else {
+            right.push(nums[i]);
+        }
+    }
+    
+    return sortArray(left).concat([pivot], sortArray(right));	//拼接结果
+};
+//来自阮一峰的
+```
+
+
 
 
 
