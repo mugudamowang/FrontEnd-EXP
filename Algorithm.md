@@ -3,12 +3,16 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Algorithm & DataStructure](#algorithm--datastructure)
-  - [数据结构](#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
-    - [1. 逻辑结构](#1-%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84)
-    - [2. 数据类型与抽象数据类型](#2-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)
-  - [排序算法--leetcode912](#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95--leetcode912)
-    - [1. 快速排序](#1-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F)
-    - [2. 冒泡排序](#2-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F)
+  - [数据结构](#数据结构)
+    - [1. 逻辑结构](#1-逻辑结构)
+    - [2. 数据类型与抽象数据类型](#2-数据类型与抽象数据类型)
+  - [排序算法--leetcode912](#排序算法--leetcode912)
+    - [1. 插入排序](#1-插入排序)
+    - [2. 冒泡排序](#2-冒泡排序)
+    - [3. 选择排序](#3-选择排序)
+    - [4. 快速排序](#4-快速排序)
+    - [5. 归并排序](#5-归并排序)
+    - [6. 原生函数sort](#6-原生函数sort)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -124,8 +128,8 @@ var sortArray = function (nums){
 #### 4. 快速排序
 
 ```js
-// 快速排序
-// 时间复杂度： O(logN)  156 ms    48.84 %
+// 快速排序1--基于数组操作
+// 时间复杂度： O(N*logN)  156 ms    48.84 %
 // 空间复杂度：O(1)   50 MB     90.17%
 // 描述:	1. 使用分治的思想进行排序处理 2. 选定任意基准, 将大于它的移到右边, 小于他的移到左边 3. 对"基准"左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止
 // 原理: 一个排完序的数组, 任意一个数的右边都是大于它的, 任意一个数的左边都是小于他的, 以此反推.
@@ -147,10 +151,104 @@ var sortArray = function (nums) {
     
     return sortArray(left).concat([pivot], sortArray(right));	//拼接结果
 };
-//来自阮一峰的
+```
+
+```js
+//快排2--基于指针赋值操作
+function quickSort(nums, start, end) {
+    //递归出口
+    if (nums.length < 2) return nums;
+    //获取基准的下标
+    let pivotIndex = partition(nums, start, end);
+    //分治,递归
+    if(start < pivotIndex){     //划分为小于pivot的数组进行分治
+        quickSort(nums, start, pivotIndex);
+    }
+    if(end > pivotIndex+1){     //划分为大于pivot的数组进行分治
+        quickSort(nums, pivotIndex+1, end);
+    }
+    return nums;
+}
+
+
+function partition(nums, start, end) {
+    //选择pivot, 组中值
+    let pivot = nums[Math.floor((start + end) / 2)],
+        i = start,
+        j = end;
+    while (i <= j) {    //两个指针靠拢, 最后在指向同个元素, 超过就表面分类完毕.
+        //更改指针
+        while (nums[i] < pivot) {   //选中比比pivot大的, 其他跳过, 表现为指针往后挪动
+            i++;
+        }
+        while (nums[j] > pivot) {  //选中比比pivot小的, 其他跳过, 表现为指针往前挪动
+            j--;
+        }
+        //交换位置
+        if (i <= j) {   //此处再加一个终止条件, 避免指针靠拢的最后一步进行交换.
+            swapValue(nums, i, j);
+            i++;
+            j--;
+        }
+    }
+    return i-1; //分治时用于划分新数组
+}
+```
+
+#### 5. 归并排序
+
+```js
+//归并排序
+// 时间复杂度：O(N^2)  1236ms    28.52%
+// 空间复杂度：O(1)    42.2MB     90.17%
+// 描述: 1. 记录一个最小值的下标, 内层循环寻找这个下标, 之后在外层循环替换最小值, 下次可以从第二小的索引值开始, 以此循环.
+function mergeSort(myArray) {
+    //终止条件
+    if (myArray.length < 2) {
+        return myArray;
+    }
+    //分治
+    var middle = Math.floor(myArray.length / 2),
+        left    = myArray.slice(0, middle),
+        right   = myArray.slice(middle);
+    return merge(mergeSort(left), mergeSort(right));
+}
+
+//核心: 将两个已经排序好的数组合并为单个. 通过左右对比, 入队,拼接操作数组
+function merge(leftnums, rightnums) {
+    //分为左右两个已经排好序的数组
+    let result = [],
+        i = j = 0;
+    //判断左右位置中的数字大小并如result[]队
+    while (i < leftnums.length && j < rightnums.length) {
+        if (leftnums[i] < rightnums[j]) {
+            result.push(leftnums[i]);
+            i++;
+        } else {
+            result.push(rightnums[j])
+            j++;
+        }
+    }
+    //任意一个数组全部入队说明已经排序完毕, 因为另一个没完全入队剩下的也比完全入队最后一个大, 直接拼接到后边即可
+    // if(i==leftnums.length){	
+    //     result.concat(rightnums.slice(i))
+    // }else{
+    //     result.concat(leftnums.slice(j))
+    // }
+    
+    return result.concat(leftnums.slice(i)).concat(rightnums.slice(j));	//简写
+}
+```
+#### 6. 原生函数sort
+
+```js
+    nums.sort((a,b) =>{
+        a-b
+    })
 ```
 
 
+[排序算法--阮一峰🔗](https://javascript.ruanyifeng.com/library/sorting.html)
 
 
 
