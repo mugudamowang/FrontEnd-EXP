@@ -4,6 +4,7 @@
 
 - [Javascript](#javascript)
     - [1. JS的执行机制](#1-js%E7%9A%84%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6)
+    - [2. typeof (字节笔试)](#2-typeof-%E5%AD%97%E8%8A%82%E7%AC%94%E8%AF%95)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -45,3 +46,24 @@ console.log('代码执行结束');   //2. 执行同步任务console.log("代码�
 
 //4. 主线程为空, 进入event queue读取回调函数success并执行
 ```
+
+
+
+#### 2. typeof (字节笔试)
+
+typeof对于基本类型, 除了`null`都可以显示正确的类型.
+
+```js
+typeof 1 // 'number'
+typeof '1' // 'string'
+typeof undefined // 'undefined'
+typeof true // 'boolean'
+typeof Symbol() // 'symbol'
+typeof b // b 没有声明，但是还会显示 undefined
+```
+
+对于对象, 除了函数为`function`, 都会显示`object`
+
+!!!特别的, 当为`null`时, 也是显示object, 这是一个历史遗留问题.
+
+[为什么typeof null的结果是Object?](https://juejin.cn/post/6844903895177805837)
