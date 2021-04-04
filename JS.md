@@ -67,3 +67,30 @@ typeof b // b 没有声明，但是还会显示 undefined
 !!!特别的, 当为`null`时, 也是显示object, 这是一个历史遗留问题.
 
 [为什么typeof null的结果是Object?](https://juejin.cn/post/6844903895177805837)
+
+
+
+#### 3. Array数组方法
+
+| 方法名   | 使用方法 | 场景 |
+| -------- | -------- | ---- |
+| push     |          |      |
+| pop      |          |      |
+| shift    |          |      |
+| unshift  |          |      |
+| reverse  |          |      |
+| sort     |          |      |
+| slice    |          |      |
+| splice   |          |      |
+| concat   |          |      |
+| toString |          |      |
+| indexOf  |          |      |
+| fliter   |          |      |
+| every    |          |      |
+| some     |          |      |
+| map      |          |      |
+| forEach  |          |      |
+| reduce   |          |      |
+
+[JavaScript深入理解之Array类型详解](http://cavszhouyou.top/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B9%8BArray%E8%AF%A6%E8%A7%A3.html)
+
