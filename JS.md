@@ -72,25 +72,25 @@ typeof b // b 没有声明，但是还会显示 undefined
 
 #### 3. Array数组方法
 
-| 方法名   | 使用方法 | 场景 |
-| -------- | -------- | ---- |
-| push     |          |      |
-| pop      |          |      |
-| shift    |          |      |
-| unshift  |          |      |
-| reverse  |          |      |
-| sort     |          |      |
-| slice    |          |      |
-| splice   |          |      |
-| concat   |          |      |
-| toString |          |      |
-| indexOf  |          |      |
-| fliter   |          |      |
-| every    |          |      |
-| some     |          |      |
-| map      |          |      |
-| forEach  |          |      |
-| reduce   |          |      |
+| 方法名   | 使用方法                                                  | 描述                                                         |
+| -------- | --------------------------------------------------------- | ------------------------------------------------------------ |
+| push     | arr.push(args)                                            | 接受任意数量的参数入栈到数组末尾                             |
+| pop      | arr.pop()                                                 | 删除栈尾                                                     |
+| shift    | arr.shift()                                               | 删除队首                                                     |
+| unshift  | arr.unshift()                                             | 添加队首                                                     |
+| reverse  | arr.reverse()                                             | 反转数组                                                     |
+| sort     | arr.sort([fn()])                                          | 排序(默认比较字符串), 接收函数参数                           |
+| slice    | arr.slice(index1, [index2])                               | 切片操作, 获取其中一部分并生成index1到index2的新数组<br />只有index1则到arr.length |
+| splice   | arr.splice(index, n)<br />arr.splice(index, n, str)<br /> | - 删除index开始的n项<br />- 删除index开始的n项, 并插入str到index |
+| concat   | arr1.concat(arr2)                                         | 返回拼接arr1和arr2的新数组(非直接作用)<br />无参数时直接复制当前数组并返回 |
+| toString | arr.toString()                                            | 返回逗号分开的字符串                                         |
+| indexOf  | arr.indexOf(n)                                            | 返回元素n对应的下标                                          |
+| fliter   | arr.filter(fn)                                            | 过滤满足fn条件的项并返回新数组. (item , index , array)       |
+| every    | arr.every(fn)                                             | 对于数组中的每一项运行一次function,如果都为true则返回true. (item , index , array) |
+| some     | arr.some(fn)                                              | 和every类似, 但是是包含关系 (item , index , array)           |
+| map      | arr.map(fn)                                               | 对每一项运行一次fn操作, 之后返回操作后的新数组 (item , index , array) |
+| forEach  | arr.forEach(fn)                                           | for循环 (item , index , array)                               |
+| reduce   | arr.reduce(fn)                                            | 求数组中所有值之和的操作 (pre, cur, index, arrray)           |
 
 [JavaScript深入理解之Array类型详解](http://cavszhouyou.top/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B9%8BArray%E8%AF%A6%E8%A7%A3.html)
 
