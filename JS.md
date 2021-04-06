@@ -176,5 +176,28 @@ ES5之后对执行上下文做了调整, 主要用词法环境和变量环境替
 
 [作用域和闭包](https://mitianyi.gitbook.io/frontend-interview-guide/javascript-basics/scope-and-closure)
 
+#### 6. This
 
+**this 指向最后一次调用这个方法的对象**, 可以通过函数的调用来理解This.
+
+首先this是执行上下文的一个属性, 我们一般对this的指向会做一些讨论.
+
+1. 函数调用模式: 当一个函数不是某个对象的属性时, 作为函数直接调用, this指向window全局对象
+
+2. 方法调用模式: 通过 `.` 运算符进行调用, 作为对象属性执行, this绑定到调用它的对象上.
+
+3. 构造器调用模式: 通过new关键字构造的函数, 在函数执行前调创建新对象, 并将this绑定到这个新对象上.
+
+   ```js
+   var peo = new person("xiao ming"); // this 绑定到 peo 对象
+   console.log(peo.name); // "xiao ming"
+   ```
+
+4. 通过 call/apply/bind 调用, 主要可以控制this的指向
+
+   1. call ( this, arg1,arg2,...,args ) 参数直接传递
+   2. apply ( this, args[] ) 参数以数组形式传递
+   3. bind ( target )  将this绑定到target上
+
+此外, 箭头函数是没有this的, 这个函数中的 `this` 只取决于他外面的第一个不是箭头函数的函数的 `this`
 
