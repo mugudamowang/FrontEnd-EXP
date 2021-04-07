@@ -240,3 +240,132 @@ ES5之后对执行上下文做了调整, 主要用词法环境和变量环境替
 [原型链及继承](https://mitianyi.gitbook.io/frontend-interview-guide/javascript-basics/prototype-chain-and-inheritance#ji-cheng)
 
 [解析原型中的各个难点](https://github.com/KieSun/Dream/issues/2#)
+
+
+
+
+
+## ES6
+
+#### 1. let const
+
+```
+1. 变量不能重复声明
+2. 引入块级作用域, 
+3. 没有变量提升, 存在展示型死区
+4. 不会影响作用域链的查询
+```
+
+#### 2. const
+
+```
+1. 对于常量声明一定要赋初始值
+2. 规范使用大写进行命名
+3. 常量的值不能修改(地址不能变化), 也就是说对于数组和对象, 可以修改元素, 但不能重新指向
+4. 形成块级作用域
+```
+
+#### 3. 结构复制
+
+```js
+1. 数组结构解构
+const F4 = ['a', 'b', 'c', 'd'];
+let [a, b, c, d] = F4;
+
+2. 对象结构
+const mugu = {
+    age: 21,
+    name: oliver,
+    skill: function(){ console.log("skate")}
+}
+let {skill} = mugu
+skill()
+```
+
+#### 4. 模板字符串
+
+```js
+1. 可以直接出现换行赋
+let str = `<ul>
+			 <li>1</li>
+			 <li>2</li>	
+		   </ul>`;
+
+2. 可以拼接变量
+let param = "dio";
+let str = `ko no ${dio} da! `;
+```
+
+#### 5. 简化对象写法
+
+```js
+可以直接在对象大括号中写入变量和函数, 省略掉键名.
+let age = 21, name = 'oliver';
+let mugu ={
+    age, name
+}
+```
+
+#### 6. 箭头函数
+
+```js
+let fn = ( a, b) ={
+    return a+b;
+}
+箭头函数主要适用于不需要this的情况,如定时任务.
+1. this是静态的, 始终指向函数声明时this的值, 即就近作用域
+2. 不能作为构造函数实例化对象.
+3. 不能是用arguments变量
+4. 箭头函数简写
+```
+
+#### 7. 函数参数的默认设置
+
+```js
+1. 形参初始值设置
+2. 与解构赋值结合使用
+function demo( {host, port='1080'} ){
+    console.log(host)
+}
+demo({ host: '127.0.0.1' })
+```
+
+#### 8. rest参数
+
+```js
+传递rest参数, 相当于加强版的arguments, 注意要放在最后.
+function demo(a, b,...args){
+    console.log(args)
+}
+demo(1,2,3,4,5) // 1,2,[3,4,5]
+```
+
+#### 9. 扩展运算符
+
+```js
+和rest类似, 但是主要是用于扩展传入的形参为独立的参数, 会将参数数组返回为序列
+主要可以用于:
+1. 数组拼接, 和concat效果一样
+2. 数组复制, 深拷贝
+3. 转化伪数组
+let arr = [1,2,3]   //默认输出为{0:[1,2,3]}
+function demo(){ console.log(arguments)}
+demo(...arr)		//输出为{ 0:1, 1:2, 3:3 }
+```
+
+#### 10. Symbol
+
+```js
+类似与字符串
+1. 值是唯一的
+2. 不能和其他数据类型进行运算
+3. 无法用for...in遍历但可以使用 reflect.ownKeys 获取对象的所有键名
+
+主要是给对象添加独一无二的属性和方法, 有安全性保障, 不会覆盖原来的方法.
+let obj1 = {...}
+let obj2 = { mymethod: Symbol() }
+obj1[obj2.mymethod] = function(){...}
+```
+
+
+
