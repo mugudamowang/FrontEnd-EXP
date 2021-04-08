@@ -267,7 +267,7 @@ ES5之后对执行上下文做了调整, 主要用词法环境和变量环境替
 
 #### 3. 结构复制
 
-```js
+```
 1. 数组结构解构
 const F4 = ['a', 'b', 'c', 'd'];
 let [a, b, c, d] = F4;
@@ -284,7 +284,7 @@ skill()
 
 #### 4. 模板字符串
 
-```js
+```
 1. 可以直接出现换行赋
 let str = `<ul>
 			 <li>1</li>
@@ -298,7 +298,7 @@ let str = `ko no ${dio} da! `;
 
 #### 5. 简化对象写法
 
-```js
+```
 可以直接在对象大括号中写入变量和函数, 省略掉键名.
 let age = 21, name = 'oliver';
 let mugu ={
@@ -308,20 +308,20 @@ let mugu ={
 
 #### 6. 箭头函数
 
-```js
+```
 let fn = ( a, b) ={
     return a+b;
 }
 箭头函数主要适用于不需要this的情况,如定时任务.
-1. this是静态的, 始终指向函数声明时this的值, 即就近作用域
+1. this 是静态的, 始终指向函数声明时 this 的值, 即就近作用域
 2. 不能作为构造函数实例化对象.
-3. 不能是用arguments变量
+3. 不能是用 arguments 变量
 4. 箭头函数简写
 ```
 
 #### 7. 函数参数的默认设置
 
-```js
+```
 1. 形参初始值设置
 2. 与解构赋值结合使用
 function demo( {host, port='1080'} ){
@@ -332,7 +332,7 @@ demo({ host: '127.0.0.1' })
 
 #### 8. rest参数
 
-```js
+```
 传递rest参数, 相当于加强版的arguments, 注意要放在最后.
 function demo(a, b,...args){
     console.log(args)
@@ -342,7 +342,7 @@ demo(1,2,3,4,5) // 1,2,[3,4,5]
 
 #### 9. 扩展运算符
 
-```js
+```
 和rest类似, 但是主要是用于扩展传入的形参为独立的参数, 会将参数数组返回为序列
 主要可以用于:
 1. 数组拼接, 和concat效果一样
@@ -355,7 +355,7 @@ demo(...arr)		//输出为{ 0:1, 1:2, 3:3 }
 
 #### 10. Symbol
 
-```js
+```
 类似与字符串
 1. 值是唯一的
 2. 不能和其他数据类型进行运算
@@ -366,6 +366,98 @@ let obj1 = {...}
 let obj2 = { mymethod: Symbol() }
 obj1[obj2.mymethod] = function(){...}
 ```
+
+#### 11. Iterator 迭代器 / for...of循环
+
+```
+1. ES6 增加了 for..of 循环, Iterator 接口为 for of 提供支持. 实际上就是对象的一个属性.
+原生具备 Iterator 接口的数据类型包括:
+Array;  Arguments;
+Set;  String;
+Map;
+NodeList;
+TypeArray;
+
+2. for...in循环保存键名; for...of循环保存键值.
+for(let index in arr) //index = 0,1,2...
+for(let item of arr)  //item = a, b, c......
+
+3. Iterator工作原理
+- 创建一个指针对象, 指向数据结构的起始位置
+- 第一次调用next, 自动指向第一个成员, 之后不断调用指导指向最后一个成员
+- 每调用next就返回包含value和done的属性和对象
+```
+
+```js
+//使用场景: 面向对象实现自定义遍历对象属性.
+const obj = {
+    name: 'obj',
+    arr: ['a', 'b', 'c'],
+    [Symbol.iterator](){	//实现接口
+        //自定义遍历行为, 重写next方法
+        let index = 0;
+        return{
+            next: ()=>{
+                if( index < this.arr.length){
+                    const result = {value: this.arr[index], done: false}
+                    index++;
+                    return result;	//next 要求返回value和done属性的对象.
+                }
+                else{ return {value: undefined, done: true}};
+            }
+        }
+    }
+};
+
+//对对象进行遍历:
+for(let item of obj){ console.log(item); }
+```
+
+#### 12. 生成器
+
+```
+1. 生成器是一种特殊的函数用以实现异步编程
+2. 不是常规的回调函数实现的异步编程, 利用迭代器解决了回调地狱问题
+```
+
+```js
+// 操作实例
+function getUser(){
+    //异步操作
+    setTimeout(()=>{
+        let data = '用户';
+        iterator.next(data);	//第二次调用next, 他的data是上一次next的返回结果
+    },1000)
+}
+function getOrder(){
+    setTimeout(()=>{
+        let data = '订单';
+        iterator.next(data);
+    },1000)
+}
+function getGood(){
+    setTimeout(()=>{
+        let data = '商品';
+        iterator.next(data);
+    },1000)
+}
+
+function * gen(){
+    //使用yield划分为不同的代码块, 并由next控制向下执行.
+    let userdata = yield getUser();
+    console.log(userdata);
+    let order = yield getOrder();
+    console.log(order);
+    let goods = yield getGood();
+    console.log(goods);
+}
+let iterator = gen();
+iterator.next();	//第一次调用next, 利用next()方法, 可以接收参数
+```
+
+#### 13. Promise
+
+
 
 
 
