@@ -71,9 +71,19 @@ typeof b // b 没有声明, 但是还会显示 undefined
 
 !!!特别的, 当为`null`时, 也是显示object, 这是一个历史遗留问题.
 
+常见机器标识码
+
+| 数据类型     | 机器码标识     |
+| ------------ | -------------- |
+| 对象(Object) | 000            |
+| 整数         | 1              |
+| 浮点数       | 010            |
+| 字符串       | 100            |
+| 布尔         | 110            |
+| undefined    | -2^31(即全为1) |
+| null         | 全为0          |
+
 [为什么typeof null的结果是Object?](https://juejin.cn/post/6844903895177805837)
-
-
 
 #### 3. Array数组方法
 
@@ -265,7 +275,7 @@ ES5之后对执行上下文做了调整, 主要用词法环境和变量环境替
 4. 形成块级作用域
 ```
 
-#### 3. 结构复制
+#### 3. 解构
 
 ```
 1. 数组结构解构
@@ -457,7 +467,38 @@ iterator.next();	//第一次调用next, 利用next()方法, 可以接收参数
 
 #### 13. Promise
 
+```
+promise是一个异步编程解决方案, 用以解决回调地狱和回调函数名不统一的问题. 可以以同步代码的形式将异步代码的嵌套表现出来, 避免了层层嵌套的回调函数
 
+本质上是一个构造函数. 接受一个函数参数fn(resolve, reject), 进行异步处理后调用相应的函数, 让promise的状态从pending到fullfill或者rejected. 并返回一个新的promise对象. 
+promise对象原型上定义了then方法, 可以根据两个状态变化注册相应的回调函数, 这个回调函数属于微任务，会在本轮事件循环的末尾执行。
+
+缺点:
+1. 无法取消, 一旦新建就会执行无法中途取消
+2. 处于pending状态时无法得知当前进展如何.
+```
+
+```js
+//新建
+const promise = new Promise(function(resolve, reject) {
+  // ... some code
+  if (/* 异步操作成功 */){
+    resolve(value);
+  } else {
+    reject(error);
+  }
+});
+//回调
+promise.then(function(value) {
+  // success
+}, function(error) {
+  // failure
+});
+```
+
+[阮一峰](https://es6.ruanyifeng.com/#docs/promise#Promise-%E7%9A%84%E5%90%AB%E4%B9%89)
+
+[promise](https://www.bukun.top/2020/06/18/promise%E4%B8%8Ejsonp/)
 
 
 
