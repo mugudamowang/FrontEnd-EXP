@@ -10,6 +10,22 @@
     - [5. 闭包](#5-%E9%97%AD%E5%8C%85)
     - [6. This](#6-this)
     - [7. 原型链和继承](#7-%E5%8E%9F%E5%9E%8B%E9%93%BE%E5%92%8C%E7%BB%A7%E6%89%BF)
+- [ES6](#es6)
+    - [1. let const](#1-let-const)
+    - [2. const](#2-const)
+    - [3. 解构](#3-%E8%A7%A3%E6%9E%84)
+    - [4. 模板字符串](#4-%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2)
+    - [5. 简化对象写法](#5-%E7%AE%80%E5%8C%96%E5%AF%B9%E8%B1%A1%E5%86%99%E6%B3%95)
+    - [6. 箭头函数](#6-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0)
+    - [7. 函数参数的默认设置](#7-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E8%AE%BE%E7%BD%AE)
+    - [8. rest参数](#8-rest%E5%8F%82%E6%95%B0)
+    - [9. 扩展运算符](#9-%E6%89%A9%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6)
+    - [10. Symbol](#10-symbol)
+    - [11. Iterator 迭代器 / for...of循环](#11-iterator-%E8%BF%AD%E4%BB%A3%E5%99%A8--forof%E5%BE%AA%E7%8E%AF)
+    - [12. 生成器](#12-%E7%94%9F%E6%88%90%E5%99%A8)
+    - [13. Promise](#13-promise)
+    - [14. set](#14-set)
+    - [15. map](#15-map)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -500,5 +516,39 @@ promise.then(function(value) {
 
 [promise](https://www.bukun.top/2020/06/18/promise%E4%B8%8Ejsonp/)
 
+#### 14. set
 
+```
+set--集合, 是es6的一种新的数据结构, 它的是内容不重复的数组.( 去重 )
+常见方法有:
+1. 元素个数 size()
+2. 添加元素 add()
+3. 删除元素 delete()
+4. 检测包含 has()
+5. 清空 clear()
+6. 迭代器接口 for of
+```
+
+```js
+//实例1 数组去重: set+扩展运算符
+let arr = [1,2,3,4,3,2,1];
+let result = [...new Set(arr)];
+
+//实例2 交集
+let arr2 = [4,5,6];
+let result = [...arr2].filter(item = >{
+    let set2 = new Set(arr2);
+    if(set2.has(item)){ return true; }else {return false;}
+});
+```
+
+#### 15. map
+
+```
+map是类似于对象的数据结构, 提供键值对的集合. 特别的, 它的'键'不限于字符串, 实现了迭代器接口. 常用方法:
+1. set()/get() set(key, value)
+2. size
+3. clear()
+4. for of
+```
 
