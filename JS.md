@@ -26,6 +26,7 @@
     - [13. Promise](#13-promise)
     - [14. set](#14-set)
     - [15. map](#15-map)
+    - [16. class](#16-class)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -267,7 +268,25 @@ ES5之后对执行上下文做了调整, 主要用词法环境和变量环境替
 
 [解析原型中的各个难点](https://github.com/KieSun/Dream/issues/2#)
 
+```js
+//构造函数实现继承
+function Phone(brand, price){
+    this.price = price; this.brand = brand;
+}
+Phone.prototype.call = function(){console.log("打电话")};
 
+//子类
+function SmartPhone(brand, price, color, size){
+    Phone.call(this, brand, price);
+    this.color = color; this.size = size;
+}
+//设置原型
+SmartPhone.prototype = new Phone;
+SmartPhone.prototype.constructor = SmartPhone;
+SmartPhone.prototype.photo = function(){console.log("拍照")};
+//实例化
+const iphone = new SmartPhone('apple',5999,red,'5.2inch');
+```
 
 
 
@@ -552,3 +571,35 @@ map是类似于对象的数据结构, 提供键值对的集合. 特别的, 它�
 4. for of
 ```
 
+#### 16. class
+
+```
+本质上就是构造函数的语法糖, 让对象的原型写法更加清晰, 更像面向对象编程
+```
+
+```js
+//class实现继承
+class Phone{
+    static name="类自己的, 实例不可访问静态类"
+	constructor(brand, price){};
+    call(){};	//不能使用对象语法, 即call: funciton(){};
+}
+
+class SmartPhone extends Phone{
+    constructor(brand, price, color, size){
+        super(brand, price);
+        this.color = color;
+        this.size = size;
+    };
+    photo(){
+        console.log('拍照')
+    }
+    //override
+    call(){
+        console.log('高清通话')
+    }
+    //geter&setter
+    get price(){}
+    set price(newPrice){ newPrice }
+}
+```
