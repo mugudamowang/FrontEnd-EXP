@@ -113,7 +113,7 @@ typeof b // b 没有声明, 但是还会显示 undefined
 | reverse  | arr.reverse()                                             | 反转数组                                                     |
 | sort     | arr.sort([fn()])                                          | 排序(默认比较字符串), 接收函数参数                           |
 | slice    | arr.slice(index1, [index2])                               | 切片操作, 获取其中一部分并生成index1到index2的新数组<br />只有index1则到arr.length |
-| splice   | arr.splice(index, n)<br />arr.splice(index, n, str)<br /> | - 删除index开始的n项<br />- 删除index开始的n项, 并插入str到index |
+| splice   | arr.splice(index, n)<br />arr.splice(index, n, str)<br /> | - 删除index开始的n项, 并返回被删除的<br />- 删除index开始的n项, 并插入str到index |
 | concat   | arr1.concat(arr2)                                         | 返回拼接arr1和arr2的新数组(非直接作用)<br />无参数时直接复制当前数组并返回 |
 | toString | arr.toString()                                            | 返回逗号分开的字符串                                         |
 | indexOf  | arr.indexOf(n)                                            | 返回元素n对应的下标                                          |
