@@ -288,6 +288,25 @@ SmartPhone.prototype.photo = function(){console.log("拍照")};
 const iphone = new SmartPhone('apple',5999,red,'5.2inch');
 ```
 
+#### 8. 前端开发常见的error
+
+| 类型           | 描述                                                         | 原因                                                         | 解决办法                                             |
+| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------------------------------------- |
+| RangeError     | Maximum call stack size exceeded                             | 递归时消耗完了堆栈的内存, 如无限循环/递归                    | 注意设置终止条件                                     |
+| ReferenceError | "x" is not defined                                           | 没有找到相关的变量引用                                       | 确保变量已声明且在本作用域内                         |
+| SyntaxError    | 1. Identifier "x" has already been declared<br />2. Invalid or unexcepted token<br />3. Unexpected end of input | 1. 变量重复声明<br />2. 捕获无效或意外的标记(非法字符)<br />3. 缺失括号或引号 | 检查变量声明; 检查是否有特殊字符或者是否遗漏一些字符 |
+| TyperError     | cannot set/read property "x" of undefined                    | 无法设置/读取属性"x", 访问未定义或者为null的属性时发生       | 使用逻辑运算符&&                                     |
+| DOMException   | Failed to execute 'open' on 'XMLHttpRequest': Invalid URL    | ajax请求时url错误, 请求失败                                  | 检查url 请求是否正确，保证请求路径的完整             |
+
+```
+调试
+1. console.log
+2. throw new error
+3. try...catch
+4. promise-->reject
+5. debugger	
+```
+
 
 
 ## ES6
